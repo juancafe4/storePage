@@ -15,9 +15,15 @@
   "bugs": {
     "url": "https://github.com/juancafe4/storePage/issues"
   },
-  "homepage": "https://github.com/juancafe4/storePage#readme",
-  "devDependencies": {
-    "webpack": "^1.13.3",
-    "webpack-dev-server": "^1.16.2"
+  "dependencies": {
+    "express": "^4.14.0",
+    "jquery": "^3.1.1",
+    "morgan": "^1.7.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "webpack": "^1.13.1",
+    "webpack-dev-middleware": "^1.8.4",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-hot-middleware": "^2.13.2"
   }
 }
