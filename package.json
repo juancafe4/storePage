@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/juancafe4/storePage/issues"
   },
-  "homepage": "https://github.com/juancafe4/storePage#readme"
+  "homepage": "https://github.com/juancafe4/storePage#readme",
+  "devDependencies": {
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  }
 }
