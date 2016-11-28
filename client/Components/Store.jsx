@@ -6,8 +6,8 @@ import {ProgressBar} from 'react-bootstrap';
 const URL = ' https://sneakpeeq-sites.s3.amazonaws.com/interviews/ce/feeds/store.js'
 //Store compoents shows the store page with each product
 class Store extends React.Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props);
 		this.state = {
 			products: []
 		}
@@ -33,9 +33,8 @@ class Store extends React.Component {
 			let thumbnails = []
 			thumbnails = products.map((val,index)=> <Product key={index + 1} product={val} />)
 
-			console.log(thumbnails);
 			return (
-				<div><Product /></div>
+				<div>{thumbnails}</div>
 			);
 		}
 		
