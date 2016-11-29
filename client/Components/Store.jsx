@@ -12,13 +12,41 @@ class Store extends React.Component {
 		super(props);
 		this.state = {
 			products: [],
-			sortBy: '',
 		}
 
 		this.sortProduct = this.sortProduct.bind(this);
 	}
 	sortProduct(element) {
-		console.log(element);
+		// 1 Sort by name from A to Z
+		// 2 Sort by name from Z to A
+		// 3 Sort by price lowest to highest
+		// 4 Sort by price highest to lowest
+
+		let {products} = this.state;
+		console.log('elemnent: ', element);
+		switch(element) {
+			case '1':
+				products.sort((a, b) =>{
+			    if(a.name < b.name) return -1;
+			    if(a.name > b.name) return 1;
+			    return 0;
+				})
+				break;
+			case '2':
+				products.sort((a, b) =>{
+			    if(a.name > b.name) return -1;
+			    if(a.name < b.name) return 1;
+			    return 0;
+				})
+				break;
+			case '3':
+				products.sort((a, b) => a.defaultPriceInCents > b.defaultPriceInCents);
+				break;
+			case '4':
+				products.sort((a, b) => a.defaultPriceInCents < b.defaultPriceInCents);
+				break;
+			}
+			this.setState({products})
 	}
 	componentDidMount() {		
 		$.get(URL, (data, status) => {
