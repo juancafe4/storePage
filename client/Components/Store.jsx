@@ -11,8 +11,10 @@ class Store extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			products: [],
-			originalProducts: [],
+			products: null,
+			originalProducts: null,
+			max: 0,
+			min: 0,
 		}
 
 		this.sortProduct = this.sortProduct.bind(this);
@@ -53,7 +55,7 @@ class Store extends React.Component {
 	filterByPrice(min, max) {
 		let filterProducts = this.state.originalProducts.filter(val => {
 			let price = val.defaultPriceInCents / 100
-			console.log(min)
+			
 			return min <= price && max >= price
 		});
 		
@@ -62,14 +64,18 @@ class Store extends React.Component {
 	componentDidMount() {		
 		$.get(URL, (data, status) => {
 			let {products} = JSON.parse(data)
-			this.setState({products, originalProducts: products,});	
+			//Setting up max min for filtering prices 
+			let prices = products.map(val => val.defaultPriceInCents)
+			let max = Math.max(...prices);
+			let min = Math.min(...prices);
+			this.setState({products, originalProducts: products, min, max});	
 		})
 	}
 
 	render() {
-		let {products} = this.state
+		let {products, min, max} = this.state
 
-		if (!products.length)
+		if (!products)
 			return (
 			<div>
 				<h3 className='text-center'>Loading...</h3>
@@ -81,10 +87,7 @@ class Store extends React.Component {
 
 			thumbnails = products.map((val,index)=> <Col key={index + 1} xs={12} md={4}> <Product product={val}/></Col>)
 
-			//Setting up max min for filtering prices 
-			let prices = products.map(val => val.defaultPriceInCents)
-			let max = Math.max(...prices);
-			let min = Math.min(...prices);
+			
 
 			return (
 				<div>
