@@ -12,9 +12,11 @@ class Store extends React.Component {
 		super(props);
 		this.state = {
 			products: [],
+			originalProducts: [],
 		}
 
 		this.sortProduct = this.sortProduct.bind(this);
+		this.filterByPrice = this.filterByPrice.bind(this);
 	}
 	sortProduct(element) {
 		// 1 Sort by name from A to Z
@@ -48,10 +50,19 @@ class Store extends React.Component {
 			}
 			this.setState({products})
 	}
+	filterByPrice(min, max) {
+		let filterProducts = this.state.originalProducts.filter(val => {
+			let price = val.defaultPriceInCents / 100
+			console.log(min)
+			return min <= price && max >= price
+		});
+		
+		this.setState({products: filterProducts})
+	}
 	componentDidMount() {		
 		$.get(URL, (data, status) => {
 			let {products} = JSON.parse(data)
-			this.setState({products});	
+			this.setState({products, originalProducts: products,});	
 		})
 	}
 
@@ -70,13 +81,18 @@ class Store extends React.Component {
 
 			thumbnails = products.map((val,index)=> <Col key={index + 1} xs={12} md={4}> <Product product={val}/></Col>)
 
+			//Setting up max min for filtering prices 
+			let prices = products.map(val => val.defaultPriceInCents)
+			let max = Math.max(...prices);
+			let min = Math.min(...prices);
+
 			return (
 				<div>
 					<SortBy sortProduct={this.sortProduct}/>
 					<br/> <br/>
 					<Row>
 						<Col mdOffset={4}>
-							<Filter/>
+							<Filter filterByPrice={this.filterByPrice} max={max} min={min}/>
 						</Col>
 					</Row>
 					<br/>
