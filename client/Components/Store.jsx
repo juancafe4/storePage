@@ -1,16 +1,24 @@
 import React from 'react';
-import Product from './Product.jsx'
+import Product from './Product.jsx';
+import SortBy from './SortBy.jsx';
+import Filter from './Filter.jsx';
 //Getting AJAX from jQuery
 import $ from 'jquery';
-import {ProgressBar} from 'react-bootstrap';
+import {ProgressBar, Row, Col} from 'react-bootstrap';
 const URL = ' https://sneakpeeq-sites.s3.amazonaws.com/interviews/ce/feeds/store.js'
 //Store compoents shows the store page with each product
 class Store extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			products: []
+			products: [],
+			sortBy: '',
 		}
+
+		this.sortProduct = this.sortProduct.bind(this);
+	}
+	sortProduct(element) {
+		console.log(element);
 	}
 	componentDidMount() {		
 		$.get(URL, (data, status) => {
@@ -31,10 +39,23 @@ class Store extends React.Component {
 			);
 		else {
 			let thumbnails = []
-			thumbnails = products.map((val,index)=> <Product key={index + 1} product={val} />)
+
+			thumbnails = products.map((val,index)=> <Col key={index + 1} xs={12} md={4}> <Product product={val}/></Col>)
 
 			return (
-				<div>{thumbnails}</div>
+				<div>
+					<SortBy sortProduct={this.sortProduct}/>
+					<br/> <br/>
+					<Row>
+						<Col mdOffset={4}>
+							<Filter/>
+						</Col>
+					</Row>
+					<br/>
+					<Row>
+							{thumbnails}	
+					</Row>
+				</div>
 			);
 		}
 		
