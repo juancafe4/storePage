@@ -18,7 +18,7 @@ To start the server
 ```
 npm start
 ```
-Finaly , go to:
+Finally , go to:
 ```
 http://localhost:8000/
 ```
