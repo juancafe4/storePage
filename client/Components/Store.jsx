@@ -4,10 +4,10 @@ import React from 'react';
 import Product from './Product';
 import SortBy from './SortBy';
 import Filter from './Filter';
-// Getting AJAX from jQuery
 
 const URL = ' https://sneakpeeq-sites.s3.amazonaws.com/interviews/ce/feeds/store.js';
-// Store compoents shows the store page with each product
+
+// Store compoent shows the store page with each product
 class Store extends React.Component {
   constructor(props) {
     super(props);
@@ -21,16 +21,20 @@ class Store extends React.Component {
     this.sortProduct = this.sortProduct.bind(this);
     this.filterByPrice = this.filterByPrice.bind(this);
   }
+  // Before rendering getch the data to get the products
   componentDidMount() {
-    $.get(URL, (data) => {
-      const { products } = JSON.parse(data);
-      // Setting up max min for filtering prices
-      const prices = products.map(val => val.defaultPriceInCents);
-      const max = Math.max(...prices);
-      const min = Math.min(...prices);
-      this.setState({ products, originalProducts: products, min, max });
+    $.get(URL, (data, status) => {
+      if (status === 'success') {
+        const { products } = JSON.parse(data);
+        // Setting up max min for filtering prices
+        const prices = products.map(val => val.defaultPriceInCents);
+        const max = Math.max(...prices);
+        const min = Math.min(...prices);
+        this.setState({ products, originalProducts: products, min, max });
+      }
     });
   }
+  // This function sorts the products
   sortProduct(element) {
     // 1 Sort by name from A to Z
     // 2 Sort by name from Z to A
@@ -66,6 +70,7 @@ class Store extends React.Component {
     this.setState({ products });
   }
 
+  // This function filter the products by price
   filterByPrice(min, max) {
     const filterProducts = this.state.originalProducts.filter((val) => {
       const price = val.defaultPriceInCents / 100;

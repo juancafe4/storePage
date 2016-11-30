@@ -1,7 +1,9 @@
 import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 
-function SortBy(props) {
+// This component sorts the porducts by name or by price
+// calling the function sortProduct from the Store component
+const SortBy = (props) => {
   const { sortProduct } = props;
   return (
     <DropdownButton id="1" title="Sort by" onSelect={e => sortProduct(e)}>
@@ -11,7 +13,7 @@ function SortBy(props) {
       <MenuItem eventKey="4">Price: High to Low </MenuItem>
     </DropdownButton>
   );
-}
+};
 
 SortBy.propTypes = {
   sortProduct: React.PropTypes.func,

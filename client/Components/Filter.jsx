@@ -1,6 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
+// This component filter the products by their price
 class Filter extends React.Component {
   constructor(props) {
     super(props);
@@ -10,6 +11,8 @@ class Filter extends React.Component {
 
   handleChange(e) {
     this.setState({ value: e.target.value });
+    // It calls filterByPrice from the Store compoent
+    // to filter out the products by their price
     this.props.filterByPrice(this.props.min / 100, e.target.value);
   }
   render() {
