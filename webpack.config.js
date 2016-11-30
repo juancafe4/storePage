@@ -14,12 +14,25 @@ module.exports = {
     filename: 'bundle.js',
 	},
 	target: 'web',
+	eslint: {
+  configFile: './.eslintrc'
+	},
 	plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin()
 	],
+	resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
 	module: {
+		preLoaders: [
+	    {
+	      test: /\.jsx?$/,
+	      exclude: /node_modules/,
+	      loader: 'eslint-loader'
+	    },
+  	],
 		loaders: [
 			{
         test: /\.jsx?$/,

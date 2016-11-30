@@ -1,15 +1,13 @@
 import React from 'react';
-import Store from './Store.jsx'
+import Store from './Store';
 
-//This is the main component it will display the store page
-class App extends React.Component {
-	render() {
-		return (
-			<div className="container">
-				<Store/>
-			</div>
-		);
-	}
+// This is the main component it will display the store page
+function App() {
+  return (
+    <div className="container">
+      <Store />
+    </div>
+  );
 }
-
 export default App;
+
